@@ -1,2 +1,4 @@
-# webfinance
-Finanças pessoais
+# Finanças pessoais
+
+- Java EE
+- JBoss 7.1
