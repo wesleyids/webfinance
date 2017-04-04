@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+</head>
+
+<style type="text/css">
+body {
+	margin: 0;
+	/*background-color: #2980b9;*/
+	width: 100%;
+	height: auto;
+	font-family: monospace;
+}
+
+.center {
+	margin: auto;
+	width: 50%;
+	padding: 10px;
+}
+
+.header {
+	background: #fff;
+	padding: 2px;
+	text-align: center;
+	width: 90%;
+	margin: auto;
+	/*border-bottom: 1px solid #2980b9;*/
+	margin-bottom: 20px;
+}
+
+textarea {
+	height: 210px;
+	width: 98%;
+}
+
+.btn {
+	font-weight: 700;
+	cursor: pointer;
+	border: 1px solid transparent;
+	padding: 6px 12px;
+	font-size: 16px;
+	border-radius: 3px;
+}
+
+.btn-clear {
+	color: #fff;
+	background-color: #f07272;
+	border-color: #f07272;
+}
+
+.btn-action {
+	color: #fff;
+	background-color: #3498DB;
+	border-color: #3498DB;
+}
+
+#result {
+	width: 93%;
+	height: auto;
+	border: 1px solid #a9a9a9;
+	padding: 14px;
+}
+</style>
+
+<body>
+	<div style="background: #fff;">
+		<div class="header">
+			<h1>HTTP Client</h1>
+			<a href="doc.html">Documentation API</a>
+		</div>
+	</div>
+	
+	<div class="center">
+
+		<textarea id="objectParams">{
+    "method": "GET",
+    "headers": {
+    	"authorization": "wids 0987654321234567890",
+    	"contentType" : "application/json"
+    },
+    "url": "/webfinance/api/rest/despesa/10",
+    "data": {
+    	"email":"wesley@inacio.com",
+    	"password":"123"
+    }
+}
+		</textarea>
+		
+		<div style="float: right;margin-right: 7px;">
+			<button id="" class="btn btn-clear" onclick="AppJS.clear()">Clear</button>
+			<button id="" class="btn btn-action" onclick="AppJS.send()">Send</button>
+		</div>
+		
+		<div style="margin-top: 60px; text-align: center">
+			<h3>JSON RESULTS</h3>
+			<div id="result" style="background: #fff;"></div>
+		</div>
+		
+	</div>
+
+	<script type="text/javascript">
+		var AppJS = {
+			params : document.getElementById("objectParams"),
+			
+			resultResponse: document.getElementById("result"), 
+			
+			printer : function(data){
+				this.resultResponse.innerHTML = data;
+			},
+			
+			clear : function() {
+				this.params.value = "";
+			},
+
+			send : function() {
+
+				var params = JSON.parse(this.params.value);
+				var xhttp = new XMLHttpRequest();
+
+				xhttp.onreadystatechange = function() {
+					if (xhttp.readyState == 4 && xhttp.status == 200) {
+						var result = JSON.parse(xhttp.responseText);
+						AppJS.printer(JSON.stringify(result, null, "\t"));
+						console.log(result);
+					}else if(xhttp.status != 200){
+						console.log(xhttp);
+						
+						var error = {
+							url: xhttp.responseURL,
+							error: xhttp.responseText,
+							status: xhttp.status,
+							statusText: xhttp.statusText
+						}
+						
+						if(error.url == ""){
+							return;
+						}
+						
+						if(error.error == ""){
+							return;
+						}
+						
+						if(error.status == ""){
+							return;
+						}
+						
+						if(error.error.indexOf("<html>") != -1){
+							error.error = "";
+						}
+						
+						AppJS.printer(JSON.stringify(error, null, "\t"));
+					}
+				};
+
+				if (params != "" || params != null) {
+					
+					xhttp.open(params.method, params.url, true);
+					
+					if(params.headers.authorization != ""){
+						xhttp.setRequestHeader("Authorization", params.headers.authorization);
+					}
+					
+					var data = null;
+					
+					if(params.method == "POST" || params.method == "post"){
+						data = JSON.stringify(params.data);
+						
+						if(params.headers.contentType != ""){
+							// 400 - bad request 
+							xhttp.setRequestHeader("Content-Type", params.headers.contentType);
+						}
+					}
+					
+					xhttp.send(data);
+				}
+			}
+		}
+		
+		/*
+			//http://jsfiddle.net/KJQ9K/554/
+		function output(inp) {
+			document.getElementById("result").appendChild(document.createElement('pre')).innerHTML = inp;
+		}
+		
+		function syntaxHighlight(json) {
+		    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+		    		function (match) {
+		        var cls = 'number';
+		        if (/^"/.test(match)) {
+		            if (/:$/.test(match)) {
+		                cls = 'key';
+		            } else {
+		                cls = 'string';
+		            }
+		        } else if (/true|false/.test(match)) {
+		            cls = 'boolean';
+		        } else if (/null/.test(match)) {
+		            cls = 'null';
+		        }
+		        return '<span class="' + cls + '">' + match + '</span>';
+		    });
+		}
+		*/
+	</script>
+
+</body>
+</html>

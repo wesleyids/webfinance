@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Documentation</title>
+</head>
+
+<style>
+#doc{
+	width: 100%; background-color: #fff;
+}
+#doc span{
+	width: 100%;
+	display: inline-block;
+	padding-left: 20px;
+    font-weight: bold;
+}
+
+#doc .uri{
+	color: blue;
+}
+</style>
+
+<body>
+
+	<div style="margin-top: 60px; text-align: center">
+		<h3>Documentation</h3>
+	</div>
+	<fieldset>
+		<legend>REST API</legend>
+		<div id="doc">
+			<h3>Login</h3>
+	
+			Attributes
+				<span>email</span>
+				<span>password</span>
+		
+			<br><br><b>@POST</b>
+			<span class="uri">/webfinance/api/login</span>
+			"data": {"email": "", "password": ""}
+			
+			<br><br><span>Retorna token para acessar a API</span>
+		
+			<hr>
+		
+			<h3>Usuario</h3>
+	
+			Attributes
+				<span>nome</span>
+				<span>sobrenome</span>
+				<span>email</span>
+				<span>password</span>
+		
+			<br><br><b>@POST</b>
+			<span class="uri">/webfinance/api/usuario</span>
+			"data": {"nome": "", "sobrenome": "", "email": "", "password": ""}
+		
+			<br><br><b>@GET</b>
+			<span class="uri">/webfinance/api/rest/usuario/{id}</span>
+		
+			<br><br><b>@PUT</b>
+			<span class="uri">/webfinance/api/rest/usuario/{id}</span>
+			"data": {"nome": "", "sobrenome": "", "email": "", "password": ""}
+		
+			<br><br><b>@DELETE</b>
+			<span class="uri">/webfinance/api/rest/usuario/{id}</span>
+		
+			<hr>
+			
+			<h3>Categoria</h3>
+	
+			Attributes
+				<span>nome</span>
+				<span>usuario: {id : "id"}</span>
+		
+			<br><br><b>@POST</b>
+			<span class="uri">/webfinance/api/rest/categoria</span>
+			"data": {"nome": "", "usuario": {"id": "id"}}
+		
+			<br><br><b>@GET</b>
+			<span class="uri">/webfinance/api/rest/categoria/{id}</span>
+		
+			<br><br><b>@PUT</b>
+			<span class="uri">/webfinance/api/rest/categoria/{id}</span>
+			"data": {"nome": "", "usuario": {"id": "id"}}
+		
+			<br><br><b>@DELETE</b>
+			<span class="uri">/webfinance/api/rest/categoria/{id}</span>
+		
+			<br><br><b>@GET</b>
+			<span class="uri">/webfinance/api/rest/categoria/all/{usuario_id}</span>
+	
+			<hr>
+		
+			<h3>Despesa</h3>
+		
+			Attributes
+				<span>nome</span>
+				<span>descricao</span>
+				<span>valor</span>
+				<span>qtdeParcelas</span>
+				<span>categoria : {id : "id"}</span>
+				<span>date : "yyyy-MM-DD"</span>
+				<span>usuario : {id : "id"}</span>
+				<span>local</span>
+				<span>status</span>
+		
+			<br><b>@POST</b><br>
+			<span class="uri">/webfinance/api/rest/despesa</span>
+			"data": {"nome": "", "descricao": "", "valor": "", "qtdeParcelas": "", "categoria": {"id": ""}, "date": "", "usuario": {"id": ""}, "local": "", "status": ""}
+			
+			<br><br><b>@GET</b><br>
+			<span class="uri">/webfinance/api/rest/despesa/{id}</span>
+		
+			<br><br><b>@PUT</b><br>
+			<span class="uri">/webfinance/api/rest/despesa/{id}</span>
+			"data": {"nome": "", "descricao": "", "valor": "", "qtdeParcelas": "", "categoria": {"id": ""}, "date": "", "usuario": {"id": ""}, "local": "", "status": ""}
+		
+			<br><br><b>@DELETE</b><br>
+			<span class="uri">/webfinance/api/rest/despesa/{id}</span>
+		
+			<hr>
+			
+			<h3>Renda</h3>
+	
+			Attributes
+				<span>nome</span>
+				<span>descricao</span>
+				<span>valor</span>
+				<span>date : "yyyy-MM-DD"</span>
+				<span>usuario : {id : "id"}</span>
+		
+			<br><br><b>@POST</b>
+			<span class="uri">/webfinance/api/rest/renda</span>
+			"data": {"nome": "", "descricao": "", "valor": "", "date": "", "usuario": {"id": ""}}
+		
+			<br><br><b>@GET</b>
+			<span class="uri">/webfinance/api/rest/renda/{id}</span>
+		
+			<br><br><b>@PUT</b>
+			<span class="uri">/webfinance/api/rest/renda/{id}</span>
+			"data": {"nome": "", "descricao": "", "valor": "", "date": "", "usuario": {"id": ""}}
+		
+			<br><br><b>@DELETE</b>
+			<span class="uri">/webfinance/api/rest/renda/{id}</span>
+		
+			<br><br><b>@GET</b>
+			<span class="uri">/webfinance/api/rest/renda/all/{usuario_id}</span>
+		
+			<hr>
+		</div>
+	</fieldset>
+
+
+</body>
+</html>
